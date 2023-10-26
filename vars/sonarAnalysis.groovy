@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(string tokensq, boolean bool_1, boolean bool_2) {
+def call(tokensq, boolean bool_1, boolean bool_2) {
     def scannerHome = tool 'SonarScanner';
     def PROJECT_NAME = "practica_1_2023_JUAN_CALDERON";
     def SONAR_AUTH_TOKEN = tokensq;
