@@ -16,7 +16,6 @@ def call(tokensq, boolean bool_1, boolean bool_2) {
     println Result
   
   }
-  sleep(10)
   timeout(time: 5, unit: 'MINUTES') {
     waitForQualityGate abortPipeline: true
   }
