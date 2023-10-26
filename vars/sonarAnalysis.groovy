@@ -11,16 +11,14 @@ def call(tokensq, boolean bool_1, boolean bool_2) {
     echo "Booleano_1 : ${bool_1}."
     echo "Booleano_2 : ${bool_2}."
     
-    def Result2 = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq} -Dsonar.host.url=${SONAR_HOST_URL}", returnStdout: true)
-    println Result2
-
-    timeout(time: 5, unit: 'MINUTES') {
-        echo "Initializing quality gates..."
-        def result = waitForQualityGate() //this is enabled by quality gates plugin: https://wiki.jenkins.io/display/JENKINS/Quality+Gates+Plugin
-        if (result.status != 'OK') {
-             error "Pipeline aborted due to quality gate failure: ${result.status}"
-        } else {
-             echo "Quality gate passed with result: ${result.status}"
-        }
-    }
+  withSonarQubeEnv(installationName: 'sq1', credentialsId: 'SQJenkinsToken') { 
+    def Result = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq}", returnStdout: true)
+    println Result
+  
+  }
+  sleep(10)
+  timeout(time: 5, unit: 'MINUTES') {
+    waitForQualityGate abortPipeline: true
+  }
+ 
 }
