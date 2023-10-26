@@ -4,8 +4,9 @@ def call(tokensq, boolean bool_1, boolean bool_2) {
     def scannerHome = tool 'SonarScanner';
     def PROJECT_NAME = "practica_1_2023_JUAN_CALDERON";
     def SONAR_AUTH_TOKEN = tokensq;
-    def Result1 = sh 'echo "Token "+${SONAR_AUTH_TOKEN}'
+    def Result1 = sh 'echo "Token : "+${SONAR_AUTH_TOKEN}'
     echo "token : ${tokensq}."
+    echo "token : ${SONAR_AUTH_TOKEN}."
     echo "Booleano_1 : ${bool_1}."
     echo "Booleano_2 : ${bool_2}."
     println Result1
