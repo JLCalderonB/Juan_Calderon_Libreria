@@ -11,7 +11,7 @@ def call(tokensq, boolean bool_1, boolean bool_2) {
     echo "Booleano_1 : ${bool_1}."
     echo "Booleano_2 : ${bool_2}."
     
-    def Result2 = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.qualitygate.timeout=10", returnStdout: true)
+    def Result2 = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.qualitygate.timeout=500", returnStdout: true)
     println Result2
 
     timeout(time: 5, unit: 'MINUTES') {
