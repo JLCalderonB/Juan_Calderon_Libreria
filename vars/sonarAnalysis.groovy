@@ -9,7 +9,7 @@ def call(tokensq, boolean bool_1, boolean bool_2) {
     echo "Booleano_1 : ${bool_1}."
     echo "Booleano_2 : ${bool_2}."
     println Result1
-    def Result2 = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.projectKey=${PROJECT_NAME} ", returnStdout: true)
+    def Result2 = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.login=${tokensq} -Dsonar.projectKey=${PROJECT_NAME} ", returnStdout: true)
     println Result2
   
 }
