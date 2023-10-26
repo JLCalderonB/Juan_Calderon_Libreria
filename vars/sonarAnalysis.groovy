@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(Boolean bool_1=true, Boolean bool_2=false) {
+def call(Boolean bool_1, Boolean bool_2) {
   
     def Result = sh 'echo "ejecuciooooooooooooooooooon"'
     echo "Booleano_1 : ${bool_1}."
