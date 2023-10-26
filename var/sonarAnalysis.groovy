@@ -1,4 +1,4 @@
 @sonarAnalysis
-def call(Boolean boll1="false") {
-  
+def call() {
+  echo "entre a la librería"
 }
