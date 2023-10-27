@@ -5,6 +5,7 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
     def PROJECT_NAME = "practica_1_2023_JUAN_CALDERON";
     def SONAR_AUTH_TOKEN = tokensq;
     def SONAR_HOST_URL = 'http://localhost:9000';
+    sh 'printenv'
     echo "ENVs : ${env.BRANCH_NAME}."
     /*
     echo "tokensq : ${tokensq}."
