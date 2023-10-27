@@ -12,9 +12,10 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
     echo "Booleano_2 : ${abortPipeline}."
     
     if (abortPipeline) {
-        def ResultAbort = echo "Aborto gatillado por parámetro ingresado abortPipeline"
+        //def ResultAbort = echo "Aborto de Pipeline - gatillado por parámetro ingresado abortPipeline"
         currentBuild.result = 'ABORTED'
-        println ResultAbort
+        error("Aborto de Pipeline - gatillado por parámetro ingresado abortPipeline")
+        //println ResultAbort
     } else {
         withSonarQubeEnv(installationName: 'sq1', credentialsId: 'SQJenkinsToken') { 
         def Result = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq}", returnStdout: true)
