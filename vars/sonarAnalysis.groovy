@@ -17,7 +17,7 @@ def call(tokensq, boolean bool_1, boolean abortPipeline,  git_branch) {
         error("Aborto de Pipeline - gatillado por parámetro ingresado abortPipeline")
     } else {
         echo "Working on Git_BRANCH : "+git_branch
-        if (git_branch="master"){
+        if (git_branch=="master"){
             currentBuild.result = 'ABORTED'
             error("Aborto de Pipeline - gatillado por rama = "master")
         } else {
