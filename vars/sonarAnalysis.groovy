@@ -12,9 +12,8 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
     echo "Booleano_2 : ${abortPipeline}."
     
     if (abortPipeline) {
-        def ResultAbort = echo "Aborto controlado"
+        def ResultAbort = echo "Aborto gatillado por parámetro ingresado abortPipeline"
         currentBuild.result = 'ABORTED'
-        error('Error : Aborto controlado…')
         println ResultAbort
     } else {
         withSonarQubeEnv(installationName: 'sq1', credentialsId: 'SQJenkinsToken') { 
