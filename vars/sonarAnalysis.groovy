@@ -1,11 +1,11 @@
 #!/usr/bin/env groovy
 
-def call(tokensq, boolean bool_1, boolean abortPipeline) {
+def call(tokensq, boolean bool_1, boolean abortPipeline, string git_branch) {
     def scannerHome = tool 'SonarScanner';
     def PROJECT_NAME = "practica_1_2023_JUAN_CALDERON";
     def SONAR_AUTH_TOKEN = tokensq;
     def SONAR_HOST_URL = 'http://localhost:9000';
-    echo 'Pulling... ' + env.GIT_BRANCH
+    echo 'Pulling... ' + git_branch
        /*
     echo "tokensq : ${tokensq}."
     echo "SONAR_AUTH_TOKEN : ${SONAR_AUTH_TOKEN}."
