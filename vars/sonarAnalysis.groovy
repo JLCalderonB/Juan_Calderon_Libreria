@@ -21,11 +21,12 @@ def call(tokensq, boolean bool_1, boolean abortPipeline,  git_branch) {
             currentBuild.result = 'ABORTED'
             error("Aborto de Pipeline - gatillado por rama = 'master'")
         } else {
-            echo "git_branches <> master : "+git_branch
-            println(git_branch.matches("hotfix(.*)"))
             if (git_branch.matches("hotfix(.*)")){
                      currentBuild.result = 'ABORTED'
                     error("Aborto de Pipeline - gatillado por rama que comienza por 'hotfix%'")
+            } else {
+                   echo "Pipeline continua con rama de trabajo"
+            }
         }
         withSonarQubeEnv(installationName: 'sq1', credentialsId: 'SQJenkinsToken') { 
         def Result = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq}", returnStdout: true)
