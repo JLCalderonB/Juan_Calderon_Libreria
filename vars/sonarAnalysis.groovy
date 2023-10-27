@@ -25,6 +25,7 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
             waitForQualityGate abortPipeline: true
             def qgResult = waitForQualityGate()
             println qgResult.status
+            echo "qgResult.status: "+qgResult.status
            /* if (qgResult.status!= 'OK'){
                 error "Pipeline aborted due to quality gate failure: ${qg.status}"
             }*/
