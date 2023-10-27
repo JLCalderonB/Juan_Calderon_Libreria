@@ -19,26 +19,16 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
         def Result = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq}", returnStdout: true)
         println Result
         }
-        if (bool_1){
-             echo "abortaré"
-            timeout(time: 0.5, unit: 'SECONDS') {
-                waitForQualityGate abortPipeline: true
+       
+            timeout(time: 1, unit: 'SECONDS') {
                 def qgResult = waitForQualityGate()
                 println qgResult.status
                 echo "qgResult.status: "+qgResult.status
-               /* if (qgResult.status!= 'OK'){
-                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }*/
-                }    
-        } else {
-            echo "No abortaré"
-            timeout(time: 0.5, unit: 'SECONDS') {
-            waitForQualityGate abortPipeline: false
-            def qgResult = waitForQualityGate()
-                println qgResult.status
-            echo "qgResult.status: "+qgResult.status
-           
-            }
-        }    
+                if (qgResult.status!= 'OK'){ 
+                       if (bool_1){
+                          error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                }  
+        }     
     }
 }
