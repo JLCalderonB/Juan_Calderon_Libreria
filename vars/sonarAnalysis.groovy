@@ -13,6 +13,8 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
     echo "Booleano_2 : ${abortPipeline}."
     */
     if (abortPipeline) {
+           echo "BRANCH : "+env.BRANCH_NAME
+                sh 'printenv'
         currentBuild.result = 'ABORTED'
         error("Aborto de Pipeline - gatillado por parámetro ingresado abortPipeline")
     } else {
