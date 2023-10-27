@@ -11,13 +11,18 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
     echo "Booleano_1 : ${bool_1}."
     echo "Booleano_2 : ${abortPipeline}."
     
-  withSonarQubeEnv(installationName: 'sq1', credentialsId: 'SQJenkinsToken') { 
-    def Result = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq}", returnStdout: true)
-    println Result
-  
-  }
-  timeout(time: 5, unit: 'MINUTES') {
-    waitForQualityGate abortPipeline: bool_1
-  }
- 
+    if (abortPipeline) {
+        def ResultAbort = echo "Aborto controlado"
+        currentBuild.result = 'ABORTED'
+        error('Error : Aborto controlado…')
+        println ResultAbort
+    } else {
+        withSonarQubeEnv(installationName: 'sq1', credentialsId: 'SQJenkinsToken') { 
+        def Result = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq}", returnStdout: true)
+        println Result
+        }
+        timeout(time: 5, unit: 'MINUTES') {
+        waitForQualityGate abortPipeline: bool_1
+        }
+    }    
 }
