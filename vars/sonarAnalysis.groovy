@@ -24,7 +24,7 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
             timeout(time: 1, unit: 'SECONDS') {
             waitForQualityGate abortPipeline: true
             def qgResult = waitForQualityGate()
-            println qgResult
+            println qgResult.status
            /* if (qgResult.status!= 'OK'){
                 error "Pipeline aborted due to quality gate failure: ${qg.status}"
             }*/
@@ -34,7 +34,7 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
             timeout(time: 1, unit: 'SECONDS') {
             waitForQualityGate abortPipeline: false
             def qgResult = waitForQualityGate()
-            println qgResult
+            println qgResult.status
             }
         }    
     }
