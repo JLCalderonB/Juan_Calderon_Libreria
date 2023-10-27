@@ -20,7 +20,7 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
         println Result
         }
        
-            timeout(time: 5, unit: 'MINUTES') {
+            timeout(time: 1, unit: 'SECOND') {
                 def qgResult = waitForQualityGate()
                 println qgResult.status
                 echo "qgResult.status: "+qgResult.status
