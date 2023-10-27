@@ -29,7 +29,6 @@ def call(tokensq, boolean bool_1, boolean abortPipeline,  git_branch) {
                 if (git_branch=="master"){
                     echo "Si falla QualityGate ABORTARÁ el Pipeline"
                     waitForQualityGate abortPipeline: true
-                    error("Aborto de Pipeline - gatillado por error en QualityGate y por rama ser 'master'")
                 } else {
                     if (git_branch.matches("hotfix(.*)")){
                         echo "Si falla QualityGate ABORTARÁ el Pipeline"
