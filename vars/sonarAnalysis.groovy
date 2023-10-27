@@ -28,6 +28,7 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
             echo "No abortaré"
             timeout(time: 1, unit: 'SECONDS') {
             waitForQualityGate abortPipeline: false
-        }
-    }    
+            }
+        }    
+    }
 }
