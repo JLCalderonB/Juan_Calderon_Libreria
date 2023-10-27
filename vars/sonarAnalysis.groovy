@@ -5,7 +5,7 @@ def call(tokensq, boolean bool_1, boolean abortPipeline,  git_branch) {
     def PROJECT_NAME = "practica_1_2023_JUAN_CALDERON";
     def SONAR_AUTH_TOKEN = tokensq;
     def SONAR_HOST_URL = 'http://localhost:9000';
-    echo 'Pulling... ' + git_branch
+    
        /*
     echo "tokensq : ${tokensq}."
     echo "SONAR_AUTH_TOKEN : ${SONAR_AUTH_TOKEN}."
@@ -13,8 +13,8 @@ def call(tokensq, boolean bool_1, boolean abortPipeline,  git_branch) {
     echo "Booleano_2 : ${abortPipeline}."
     */
     if (abortPipeline) {
-           echo "BRANCH : "+env.BRANCH_NAME
-                sh 'printenv'
+           echo "BRANCH : "+git_branch
+       
         currentBuild.result = 'ABORTED'
         error("Aborto de Pipeline - gatillado por parámetro ingresado abortPipeline")
     } else {
