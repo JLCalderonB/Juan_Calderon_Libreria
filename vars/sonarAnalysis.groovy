@@ -16,18 +16,6 @@ def call(tokensq, boolean bool_1, boolean abortPipeline,  git_branch) {
         currentBuild.result = 'ABORTED'
         error("Aborto de Pipeline - gatillado por parámetro ingresado abortPipeline")
     } else {
-        echo "Working on Git_BRANCH : "+git_branch
-        if (git_branch=="master"){
-            currentBuild.result = 'ABORTED'
-            error("Aborto de Pipeline - gatillado por rama = 'master'")
-        } else {
-            if (git_branch.matches("hotfix(.*)")){
-                     currentBuild.result = 'ABORTED'
-                    error("Aborto de Pipeline - gatillado por rama que comienza por 'hotfix%'")
-            } else {
-                   echo "Pipeline continua con rama de trabajo"
-            }
-        }
         withSonarQubeEnv(installationName: 'sq1', credentialsId: 'SQJenkinsToken') { 
         def Result = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq}", returnStdout: true)
         println Result
@@ -37,8 +25,21 @@ def call(tokensq, boolean bool_1, boolean abortPipeline,  git_branch) {
                 echo "Si falla QualityGate ABORTARÁ el Pipeline"
                 waitForQualityGate abortPipeline: true
             } else {
-                 echo "Si falla QualityGate CONTINUARÁ el Pipeline"
-                waitForQualityGate abortPipeline: false
+                echo "Working on Git_BRANCH : "+git_branch
+                if (git_branch=="master"){
+                    echo "Si falla QualityGate ABORTARÁ el Pipeline"
+                    waitForQualityGate abortPipeline: true
+                    error("Aborto de Pipeline - gatillado por error en QualityGate y por rama ser 'master'")
+                } else {
+                    if (git_branch.matches("hotfix(.*)")){
+                        echo "Si falla QualityGate ABORTARÁ el Pipeline"
+                        waitForQualityGate abortPipeline: true
+                        error("Aborto de Pipeline - gatillado por error en QualityGate y por rama que comienza por 'hotfix%'")
+                    } else {
+                        echo "Si falla QualityGate CONTINUARÁ el Pipeline"
+                        waitForQualityGate abortPipeline: false
+                    }
+                } 
             }
         }     
     }
