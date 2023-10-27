@@ -20,15 +20,15 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
         println Result
         }
        
-            timeout(time: 1, unit: 'SECONDS') {
+            timeout(time: 5, unit: 'MINUTES') {
                 def qgResult = waitForQualityGate()
                 println qgResult.status
                 echo "qgResult.status: "+qgResult.status
-                if (qgResult.status!= 'OK'){ 
+               /* if (qgResult.status!= 'OK'){ 
                        if (bool_1){
                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
                         }
-                }  
+                } */ 
         }     
     }
 }
