@@ -27,13 +27,12 @@ def call(tokensq, boolean bool_1, boolean abortPipeline,  git_branch) {
             } else {
                 echo "Working on Git_BRANCH : "+git_branch
                 if (git_branch=="master"){
-                    echo "Si falla QualityGate ABORTARÁ el Pipeline"
+                    echo "Si falla QualityGate ABORTARÁ el Pipeline porque la rama es 'master'"
                     waitForQualityGate abortPipeline: true
                 } else {
                     if (git_branch.matches("hotfix(.*)")){
-                        echo "Si falla QualityGate ABORTARÁ el Pipeline"
+                        echo "Si falla QualityGate ABORTARÁ el Pipeline porque la rama comienza con 'hotfix%'"
                         waitForQualityGate abortPipeline: true
-                        error("Aborto de Pipeline - gatillado por error en QualityGate y por rama que comienza por 'hotfix%'")
                     } else {
                         echo "Si falla QualityGate CONTINUARÁ el Pipeline, rama actual *"+git_branch+"* <> 'master' y no comienza por 'hotfix'"
                         waitForQualityGate abortPipeline: false
