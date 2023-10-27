@@ -19,8 +19,15 @@ def call(tokensq, boolean bool_1, boolean abortPipeline) {
         def Result = sh (script: "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_NAME} -Dsonar.login=${tokensq}", returnStdout: true)
         println Result
         }
-        timeout(time: 1, unit: 'SECONDS') {
-        waitForQualityGate abortPipeline: bool_1
+        if (bool_1){
+             echo "abortaré"
+            timeout(time: 1, unit: 'SECONDS') {
+            waitForQualityGate abortPipeline: true
+            }    
+        } else {
+            echo "No abortaré"
+            timeout(time: 1, unit: 'SECONDS') {
+            waitForQualityGate abortPipeline: false
         }
     }    
 }
